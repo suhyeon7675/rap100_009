@@ -1,0 +1,59 @@
+managed implementation in class ZRAP100_BP_TRAVELTP_009 unique;
+strict ( 2 );
+with draft;
+extensible;
+define behavior for ZRAP100_R_TRAVELTP_009 alias Travel
+persistent table ZRAP100_ATRAV009
+extensible
+draft table ZRAP100_DTRAV009
+etag master LocalLastChangedAt
+lock master total etag LastChangedAt
+authorization master( global )
+early numbering
+{
+  field ( readonly )
+   CreatedBy,
+   CreatedAt,
+   LocalLastChangedBy,
+   LocalLastChangedAt,
+   LastChangedAt;
+
+  field ( readonly )
+   TravelID;
+
+
+  create;
+  update;
+  delete;
+
+  determination setStatusToOpen on modify { create; }
+
+  draft action Activate optimized;
+  draft action Discard;
+  draft action Edit;
+  draft action Resume;
+  draft determine action Prepare;
+
+  mapping for ZRAP100_ATRAV009 corresponding extensible
+  {
+    TravelID = travel_id;
+    AgencyID = agency_id;
+    CustomerID = customer_id;
+    BeginDate = begin_date;
+    EndDate = end_date;
+    BookingFee = booking_fee;
+    TotalPrice = total_price;
+    CurrencyCode = currency_code;
+    Description = description;
+    OverallStatus = overall_status;
+    Attachment = attachment;
+    MimeType = mime_type;
+    FileName = file_name;
+    CreatedBy = created_by;
+    CreatedAt = created_at;
+    LocalLastChangedBy = local_last_changed_by;
+    LocalLastChangedAt = local_last_changed_at;
+    LastChangedAt = last_changed_at;
+  }
+
+}
